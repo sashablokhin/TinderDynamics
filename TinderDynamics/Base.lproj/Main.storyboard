@@ -51,11 +51,15 @@
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="10"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="WAv-CL-B9K" appends="YES" id="Q8t-7J-Q12"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                             </view>
@@ -73,8 +77,17 @@
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="dialogView" destination="Q3I-te-B15" id="FGU-9O-YmR"/>
+                        <outlet property="panRecognizer" destination="WAv-CL-B9K" id="gqt-J0-lZ2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="WAv-CL-B9K">
+                    <connections>
+                        <action selector="handleGesture:" destination="BYZ-38-t0r" id="U4T-v6-1yp"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="305" y="418"/>
         </scene>
