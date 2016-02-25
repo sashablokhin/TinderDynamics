@@ -78,6 +78,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="avatarImageView" destination="lrj-4l-wmP" id="EFi-s1-aN1"/>
                         <outlet property="dialogView" destination="Q3I-te-B15" id="FGU-9O-YmR"/>
                         <outlet property="panRecognizer" destination="WAv-CL-B9K" id="gqt-J0-lZ2"/>
                     </connections>

@@ -12,11 +12,15 @@ class ViewController: UIViewController {
 
     @IBOutlet var panRecognizer: UIPanGestureRecognizer!
     @IBOutlet var dialogView: UIView!
+    @IBOutlet var avatarImageView: UIImageView!
     
     var animator: UIDynamicAnimator!
     var attachmentBehavor: UIAttachmentBehavior!
     var gravityBehavor: UIGravityBehavior!
     var snapBehavor: UISnapBehavior?
+    
+    let images = ["user1", "user2", "user3", "user4"]
+    var number = 0
     
     @IBAction func handleGesture(sender: UIPanGestureRecognizer) {
         let location = sender.locationInView(view)
@@ -55,12 +59,45 @@ class ViewController: UIViewController {
                 gravity.gravityDirection = CGVectorMake(0, 10)
                 
                 animator.addBehavior(gravity)
+                
+                delay(0.3) {
+                    self.refreshView()
+                }
             }
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    
+    func refreshView() {
+        number++
+        
+        if number == images.count {
+            number = 0
+        }
+        
+        animator.removeAllBehaviors()
+        
+        snapBehavor = UISnapBehavior(item: self.dialogView, snapToPoint: self.view.center)
+        attachmentBehavor.anchorPoint = self.view.center
+        
+        dialogView.center = self.view.center
+        viewDidAppear(true)
+    }
+    
+    
+    func delay(delay: Double, closure: () -> ()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
+    }
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
         let scale = CGAffineTransformMakeScale(0.5, 0.5)
         let translate = CGAffineTransformMakeTranslation(0, -200)
@@ -74,7 +111,18 @@ class ViewController: UIViewController {
             self.dialogView.transform = CGAffineTransformConcat(scale, translate)
             }, completion: nil)
         
+        avatarImageView.image = UIImage(named: images[number])
+        
+        dialogView.alpha = 1
+    }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         animator = UIDynamicAnimator(referenceView: view)
+        
+        dialogView.alpha = 0
     }
 
     override func didReceiveMemoryWarning() {
